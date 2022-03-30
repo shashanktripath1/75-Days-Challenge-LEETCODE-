@@ -4,7 +4,7 @@ class Solution:
         N=len(board[0])
         P=len(word)
         def helper(r,c,pos):
-            if pos>=P:
+            if pos==P:
                 return True
             elif 0<=r<M and 0<=c<N and board[r][c]==word[pos]:
                 temp=board[r][c]
