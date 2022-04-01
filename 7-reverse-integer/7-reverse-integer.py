@@ -12,4 +12,3 @@ class Solution:
         if  not -2147483648<sum1<2147483647:
             return 0
         return sign*sum1
-        
