@@ -3,9 +3,7 @@ class Solution:
         ptr=0
         for i in range(len(nums)):
             if nums[i]%2==0:
-                temp=nums[ptr]
-                nums[ptr]=nums[i]
-                nums[i]=temp
+                nums[ptr],nums[i]=nums[i],nums[ptr]
                 ptr+=1
         return nums
         
