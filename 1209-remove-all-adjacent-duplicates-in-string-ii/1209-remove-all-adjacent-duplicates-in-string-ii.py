@@ -8,8 +8,4 @@ class Solution:
                 stack.append([c,1])
             if stack[-1][1]==k:
                 stack.pop()
-        res=""
-        for c,cnt in stack:
-            res+=(c*cnt)
-        return res
-        
+        return "".join([c*cnt for c,cnt in stack])
