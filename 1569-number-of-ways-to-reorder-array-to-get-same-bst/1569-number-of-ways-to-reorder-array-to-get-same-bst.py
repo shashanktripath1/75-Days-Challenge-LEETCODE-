@@ -13,6 +13,6 @@ class Solution:
                     right.append(nums[i])
                 if nums[i]<nums[0]:
                     left.append(nums[i])
-            return ncr(len(left)+len(right),len(left))*method1(left)*method1(right)
+            return ncr(len(left)+len(right),len(right))*method1(left)*method1(right)
         return (method1(nums)-1)%(10**9+7)
             
