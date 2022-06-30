@@ -4,6 +4,6 @@ class Solution:
         nums.sort()
         count=0
         middle=nums[len(nums)//2]
-        for i in nums:
-            count+=abs(middle-i)
+        for i in range(len(nums)):
+            count+=abs(middle-nums[i])
         return count
