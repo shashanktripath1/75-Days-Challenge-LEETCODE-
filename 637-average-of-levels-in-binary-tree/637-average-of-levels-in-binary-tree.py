@@ -24,5 +24,5 @@ class Solution:
             res.append(cur_level)
         ans=[]
         for i in res:
-            ans.append(sum(i)/len(i))
+            ans.append(float(sum(i)/len(i)))
         return ans
