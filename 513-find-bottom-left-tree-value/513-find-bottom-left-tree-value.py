@@ -22,5 +22,4 @@ class Solution:
                 if cur.right is not None:
                     queue.append(cur.right)
             res.append(cur_level)
-        res=res[::-1]
-        return res[0][0]
+        return res[-1][0]
