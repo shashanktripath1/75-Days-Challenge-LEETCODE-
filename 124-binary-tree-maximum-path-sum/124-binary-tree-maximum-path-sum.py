@@ -4,7 +4,6 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from math import *
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         self.res = root.val
