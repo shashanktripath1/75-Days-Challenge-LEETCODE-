@@ -1,21 +1,21 @@
 class Solution:
     def closedIsland(self, grid: List[List[int]]) -> int:
-        def dfs(i,j):
-            if grid[i][j]==1:
+        def dfs(row,col):
+            if grid[row][col]==1:
                 return True
-            if i<=0 or i>=m-1 or j<=0 or j>=n-1:
+            if row<=0 or row>=row_len-1 or col<=0 or col>=col_len-1:
                 return False
-            grid[i][j]=1
-            up=dfs(i-1,j)
-            down=dfs(i+1,j)
-            left=dfs(i,j-1)
-            right=dfs(i,j+1)
-            return up and down and left and right
-            
-        m,n=len(grid),len(grid[0])
+            grid[row][col]=1
+            up=dfs(row-1,col)
+            down=dfs(row+1,col)
+            left=dfs(row,col-1)
+            right=dfs(row,col+1)
+            return left and right and up and down
+        row_len=len(grid)
+        col_len=len(grid[0])
         ans=0
-        for i in range(1,m-1):
-            for j in range(1,n-1):
-                if grid[i][j]==0 and dfs(i,j):
+        for row in range(1,row_len-1):
+            for col in range(1,col_len-1):
+                if grid[row][col]==0 and dfs(row,col):
                     ans+=1
         return ans
