@@ -25,7 +25,7 @@ class Solution:
             mid=(low+high)//2
             if nums[mid]==target:
                 end=mid
-                low=mid+1
+                low=mid+1               
             elif nums[mid]>target:
                 high=mid-1
             else:
