@@ -1,15 +1,13 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        start=self.find_Start(nums,target)
-        end=self.find_End(nums,target)
+        start=self.find_start(nums,target)
+        end=self.find_end(nums,target)
         return [start,end]
-    
-    def find_Start(self, nums: List[int], target: int) -> int:
-        low=0
-        high=len(nums)-1
+    def find_start(self,nums:List[int],target:int)->List[int]:
+        low,high=0,len(nums)-1
         start=-1
         while low<=high:
-            mid=low+(high-low)//2
+            mid=(low+high)//2
             if nums[mid]==target:
                 start=mid
                 high=mid-1
@@ -18,13 +16,13 @@ class Solution:
             else:
                 low=mid+1
         return start
-    
-    def find_End(self, nums: List[int], target: int) -> int:
-        low=0
-        high=len(nums)-1
+                
+        
+    def find_end(self,nums:List[int],target:int)->List[int]:
+        low,high=0,len(nums)-1
         end=-1
         while low<=high:
-            mid=low+(high-low)//2
+            mid=(low+high)//2
             if nums[mid]==target:
                 end=mid
                 low=mid+1
@@ -33,5 +31,4 @@ class Solution:
             else:
                 low=mid+1
         return end
-    
                 
