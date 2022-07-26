@@ -16,4 +16,3 @@ class Solution:
         if left is not None and right is not None:
             return root
         return left if left is not None else right
-        
