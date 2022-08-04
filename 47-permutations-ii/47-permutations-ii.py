@@ -1,22 +1,16 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        res=[]
-        perm=[]
-        count={n:0 for n in nums}
-        for n in nums:
-            count[n]+=1
+        res=set()
+
+        def helper(l,r):
+            if (l==r):
+                res.add(tuple(nums.copy()))
         
-        def dfs():
-            if len(perm)==len(nums):
-                res.append(perm.copy())
-                return 
-            for n in count:
-                if count[n]>0:
-                    perm.append(n)
-                    count[n]-=1
-                    dfs()
-                    count[n]+=1
-                    perm.pop()
-        dfs()
+            else:
+                for i in range(l,r):
+                    nums[l],nums[i]=nums[i],nums[l]
+                    helper(l+1,r)
+                    nums[l],nums[i]=nums[i],nums[l]
+                    
+        helper(0,len(nums))
         return res
-        
