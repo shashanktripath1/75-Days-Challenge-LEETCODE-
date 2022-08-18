@@ -27,7 +27,5 @@ class Solution:
                 temp1.append(nums[i])
             if i!=n1-1:
                 temp2.append(nums[i])
-        a=self.rob1(temp1)
-        b=self.rob1(temp2)
-        return max(a,b)
+        return max(self.rob1(temp1),self.rob1(temp2))
          
