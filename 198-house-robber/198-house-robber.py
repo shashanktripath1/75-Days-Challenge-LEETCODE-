@@ -1,17 +1,17 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        def f(ind,dp):
+            
+            if ind==0:
+                return nums[ind]
+            if ind<0:
+                return 0
+            if dp[ind]!=-1:
+                return dp[ind]
+            take=nums[ind]+f(ind-2,dp)
+            not_take=0+f(ind-1,dp)
+            dp[ind]= max(take,not_take)
+            return dp[ind]
         n=len(nums)
-        if n==1:
-            return nums[0]
-        dp=[0]*(n)
-        prev1=nums[0]
-        prev2=0
-        for i in range(1,n):
-            take=nums[i]
-            if i>1:
-                take+=prev2
-            not_take=0+prev1
-            cur=max(take,not_take)
-            prev2=prev1
-            prev1=cur
-        return prev1
+        dp=[-1]*n
+        return f(n-1,dp)
