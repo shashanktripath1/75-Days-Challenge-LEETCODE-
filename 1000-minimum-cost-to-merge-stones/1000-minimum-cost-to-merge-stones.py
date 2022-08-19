@@ -1,7 +1,7 @@
 class Solution:
     def mergeStones(self, stones: List[int], K: int) -> int:
         n = len(stones)
-        if (n-1)%(K-1):
+        if (n-1)%(K-1)!=0:
             return -1
         dp = [[0]*n for _ in range(n)]
         sums = [0]*(n+1)
