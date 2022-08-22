@@ -1,11 +1,15 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        def helper(i,j):
-            if i==m-1 or j==n-1:
+        def f(i,j,dp):
+            if(i==0 and j==0):
                 return 1
-            if dp[i][j]!=0:
+            if(i<0 or j<0):
+                return 0
+            if dp[i][j]!=-1:
                 return dp[i][j]
-            dp[i][j]=helper(i+1,j)+helper(i,j+1)
+            up=f(i-1,j,dp)
+            left=f(i,j-1,dp)
+            dp[i][j]=up+left
             return dp[i][j]
-        dp=[[0 for i in range(n)]for j in range(m)]
-        return helper(0,0)
+        dp=[[-1]*(n) for i in range(m)]
+        return f(m-1,n-1,dp)
