@@ -1,33 +1,19 @@
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
-        nrows = len(obstacleGrid)
-        ncols = len(obstacleGrid[0])
-        
-        # grid that stores the number of ways to reach this cell
-        mem = [[0 for _ in range(ncols)] for _ in range(nrows)]
-        
-        # init first row
-        val = 1
-        for i in range(ncols):
-            if obstacleGrid[0][i] == 1:
-                val = 0
-            mem[0][i] = val
+        def f(i,j,dp):
+            if i>=0 and j>=0 and obstacleGrid[i][j]==1:
+                return 0
+            if i==0 and j==0:
+                return 1
+            if i<0 or j<0:
+                return 0
             
-        # init first col
-        val = 1
-        for i in range(nrows):
-            if obstacleGrid[i][0] == 1:
-                val = 0
-            mem[i][0] = val
-            
-        # Dynamic programming. Calculate the number of ways to reach each cell
-        for row in range(1, nrows):
-            for col in range(1, ncols):
-                if obstacleGrid[row][col] == 1:
-                    mem[row][col] == 0
-                else:
-                    mem[row][col] = mem[row-1][col] + mem[row][col-1]
-            
-        #print(mem)
-        
-        return mem[-1][-1]
+            if dp[i][j]!=-1:
+                return dp[i][j]
+            up=f(i-1,j,dp)
+            left=f(i,j-1,dp)
+            dp[i][j]=left+up
+            return dp[i][j]
+        m,n=len(obstacleGrid),len(obstacleGrid[0])
+        dp=[[-1]*(n) for i in range(m)]
+        return f(m-1,n-1,dp)
