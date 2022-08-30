@@ -9,16 +9,16 @@ class Solution:
         ans=[]
         if not root:
             return []
-        queue=deque([])
+        queue=deque()
         queue.append(root)
         while queue:
             cur_level=[]
             for i in range(len(queue)):
                 cur=queue.popleft()
                 cur_level.append(cur.val)
-                if cur.left:
+                if cur.left is not None:
                     queue.append(cur.left)
-                if cur.right:
+                if cur.right is not None:
                     queue.append(cur.right)
             ans.append(cur_level)
         return ans
