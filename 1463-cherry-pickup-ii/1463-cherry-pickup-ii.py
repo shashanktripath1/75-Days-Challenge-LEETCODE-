@@ -25,6 +25,6 @@ class Solution:
         
 
         n,m=len(grid),len(grid[0])
-        dp = [[[-1 for i in range(m+1)] for j1 in range(n+1)] for j2 in range(n+1)]
+        dp = [[[-1 for i in range(m)] for j1 in range(n)] for j2 in range(n)]
 
         return f(0,0,m-1,dp)
