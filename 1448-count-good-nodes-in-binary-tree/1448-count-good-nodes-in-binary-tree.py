@@ -7,7 +7,7 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         def helper(node,max_value):
-            if not node:
+            if not  node:
                 return 0
             ans=1 if node.val>=max_value else 0
             max_value=max(max_value,node.val)
