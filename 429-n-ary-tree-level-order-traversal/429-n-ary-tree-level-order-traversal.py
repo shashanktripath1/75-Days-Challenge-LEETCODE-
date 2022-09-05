@@ -1,27 +1,25 @@
-"""
+
 # Definition for a Node.
 class Node:
     def __init__(self, val=None, children=None):
         self.val = val
         self.children = children
-"""
+        
 
 class Solution:
     def levelOrder(self, root: 'Node') -> List[List[int]]:
-        if root is None:
+        res=[]
+        if not root:
             return []
-        ans = []
-        queue = [root]
-        while len(queue) > 0:
-            size = len(queue)
-            i = 0
-            level_arr = []
-            while i < size:
-                node = queue.pop(0)
-                i += 1
-                level_arr.append(node.val)
-                for child in node.children:
-                    queue.append(child)
-            ans.append(level_arr)
+        queue=deque()
+        queue.append(root)
+        while queue:
+            cur_level=[]
+            for i in range(len(queue)):
+                cur=queue.popleft()
+                cur_level.append(cur.val)
+                for i in cur.children:
+                    queue.append(i)
+            res.append(cur_level)
+        return res
         
-        return ans
