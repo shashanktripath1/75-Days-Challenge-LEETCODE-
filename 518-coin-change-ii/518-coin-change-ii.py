@@ -1,13 +1,10 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        
         n=len(coins)
         dp=[[0 for i in range(amount+1)]for j in range(n+1)]
-
         for t in range(amount+1):
             if(t%coins[0]==0):
                 dp[0][t]+=1
-            dp[0][t]+=0
         for ind in range(1,n):
             for tar in range(amount+1):
                 not_take=dp[ind-1][tar]
