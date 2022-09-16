@@ -1,13 +1,13 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
         def f(i,j,s,t,dp):
-            if j<0:
+            if j==0:
                 return 1
-            if i<0:
+            if i==0:
                 return 0
             if dp[i][j]!=-1:
                 return dp[i][j]
-            if s[i]==t[j]:
+            if s[i-1]==t[j-1]:
                 dp[i][j]= f(i-1,j-1,s,t,dp)+f(i-1,j,s,t,dp)
                 return dp[i][j]
             
@@ -16,4 +16,4 @@ class Solution:
         n=len(s)
         m=len(t)
         dp=[[-1 for i in range(m+1)]for j in range(n+1)]
-        return f(n-1,m-1,s,t,dp)
+        return f(n,m,s,t,dp)
