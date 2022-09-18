@@ -1,4 +1,3 @@
-from collections import *
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -28,6 +27,3 @@ class Solution:
             ans.append(cur_level)
             flag=not flag
         return ans
-        
-
-                
