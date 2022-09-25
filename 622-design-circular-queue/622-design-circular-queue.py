@@ -1,45 +1,34 @@
 class MyCircularQueue:
-
     def __init__(self, k: int):
-        self.myArray = [None]*k
-        self.size = k
-        self.head = -1
-        self.tail = -1
+        self.k = k
+        self.data = [-1] * k
+        self.front = 0
+        self.rear = -1
 
     def enQueue(self, value: int) -> bool:
-        if self.isFull():
-            return False
-        
-        if self.isEmpty():
-            self.head = 0
-            
-        self.tail = (self.tail + 1) % self.size
-        self.myArray[self.tail] = value
+        if self.isFull(): return False
+        self.rear = (self.rear + 1) % self.k
+        self.data[self.rear] = value
         return True
-            
 
     def deQueue(self) -> bool:
-        if self.isEmpty():
-            return False
-        
-        if self.head == self.tail:
-            self.head = -1
-            self.tail = -1
-            return True
-        
-        self.head = (self.head + 1) % self.size
+        if self.isEmpty(): return False
+        self.front = (self.front + 1) % self.k
+        if self.front - self.rear == 1 or (self.front == 0 and self.rear == self.k-1):
+            self.front = 0
+            self.rear = -1
         return True
-        
-        
+    
     def Front(self) -> int:
-        return self.myArray[self.head] if not self.isEmpty() else -1
-
+        if self.isEmpty(): return -1
+        return self.data[self.front]
+    
     def Rear(self) -> int:
-        return self.myArray[self.tail] if not self.isEmpty() else -1
-        
-
+        if self.isEmpty(): return -1
+        return self.data[self.rear]
+    
     def isEmpty(self) -> bool:
-        return True if self.head == -1 else False
+        return self.rear == -1
 
     def isFull(self) -> bool:
-        return (self.tail + 1) % self.size == self.head
+        return (self.rear == self.k-1 and self.front == 0) or (self.rear != -1 and self.front - self.rear == 1)
