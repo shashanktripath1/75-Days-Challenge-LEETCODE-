@@ -13,4 +13,4 @@ class Solution:
                 sum1=(len1 * maxi)+dp[j+1]
                 max_ans=max(max_ans,sum1)
             dp[ind]=max_ans
-        return dp[ind]
+        return dp[0]
