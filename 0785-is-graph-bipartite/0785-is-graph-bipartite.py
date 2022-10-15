@@ -1,17 +1,22 @@
+#dfs approach
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        color=[-1]*len(graph)
-        for i in range(len(graph)):
+        def dfs(i,c):
+            if color[i]!=-1:
+                if color[i]!=c:
+                    return False
+                return True
+            color[i]=c
+            for v in graph[i]:
+                if not dfs(v,1-c):
+                    return False
+            return True
+            
+        n=len(graph)
+        color=[-1]*(n)
+        for i in range(n):
             if color[i]==-1:
-                color[i]=1
-                queue=deque()
-                queue.append(i)
-                while queue:
-                    cur=queue.popleft()
-                    for node in graph[cur]:
-                        if color[node]==-1:
-                            color[node]=1-color[cur]
-                            queue.append(node)
-                        elif color[node]==color[cur]:
-                            return False
+                if not dfs(i,1):
+                    return False
         return True
+    
