@@ -1,21 +1,20 @@
 class Solution:
     def canFinish(self, num: int, pre: List[List[int]]) -> bool:
-        graph = defaultdict(list)
-        incoming = [0]*num
-        for u, v in pre :
-            incoming[v] += 1
+        graph=defaultdict(list)
+        indegree=[0]*num
+        for u,v in pre:
+            indegree[v]+=1
             graph[u].append(v)
-        q = deque()
-        for v in range(num) :
-            if  incoming[v] == 0 :
-                q.append(v)
-        if not q : return False
-        cnt = 0
-        while q :
-            u = q.popleft()
-            cnt += 1
-            for v in graph[u] :
-                incoming[v] -= 1
-                if incoming[v] == 0 :
-                    q.append(v)
-        return cnt == num
+        queue=deque()
+        for v in range(num):
+            if indegree[v]==0:
+                queue.append(v)
+        count=0
+        while queue:
+            u=queue.popleft()
+            count+=1
+            for v in graph[u]:
+                indegree[v]-=1
+                if indegree[v]==0:
+                    queue.append(v)
+        return count==num
