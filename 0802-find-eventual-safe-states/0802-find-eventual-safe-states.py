@@ -1,24 +1,24 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        def check_cycle(node,graph,visited):
-            if visited[node]==2:
-                return True
-            visited[node]=2
-            for neighbour in graph[node]:
-                if visited[neighbour]!=1:
-                    if check_cycle(neighbour,graph,visited):
-                        return True
-            visited[node]=1
-            return False
-                
         n=len(graph)
-        visited=[0]*(n)
-        for i in range(n):
-            if visited[i]==0:
-                if check_cycle(i,graph,visited):
-                    continue
-        answer=[]
-        for i in range(n):
-            if visited[i]==1:
-                answer.append(i)
-        return answer
+        indegree=[0]*(n)
+        adj=[[]for _ in range(n)]
+        for u in range(n):
+            for v in graph[u]:
+                adj[v].append(u)
+                indegree[u]+=1
+        queue=deque()
+        for v in range(n):
+            if indegree[v]==0:
+                queue.append(v)
+        ans=[]
+        while queue:
+            u=queue.popleft()
+            ans.append(u)
+            for v in adj[u]:
+                indegree[v]-=1
+                if indegree[v]==0:
+                    queue.append(v)
+        return sorted(ans)
+        
+            
