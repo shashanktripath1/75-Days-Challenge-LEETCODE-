@@ -4,11 +4,11 @@ class Solution:
         l=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t',
         'u','v','w','x','y','z']
         queue=deque([])
-        queue.append([beginWord,1])
+        queue.append([beginWord,0])
         while queue:
             a,b=queue.popleft()
             if a==endWord:
-                return b
+                return b+1
             for j in range(len(a)):
                 for i in l:
                     if (a[:j]+i+a[j+1:]) in s and (a[:j]+i+a[j+1:])!=beginWord:
