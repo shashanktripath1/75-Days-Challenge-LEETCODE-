@@ -1,8 +1,11 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dic={}
         n=len(nums)
         for i in range(n):
-            for j in range(i+1,n):
-                if nums[i]+nums[j]==target:
-                    return [i,j]
-        return [-1,-1]
+            element=nums[i]
+            left=target-element
+            if left in dic:
+                return [i,dic[left]]
+            dic[element]=i
+        return [-1.-1]
