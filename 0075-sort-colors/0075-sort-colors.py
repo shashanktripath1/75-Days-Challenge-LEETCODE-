@@ -1,3 +1,4 @@
+#DUTCH NATIONAL FLAG ALGORITHM
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         n=len(nums)
