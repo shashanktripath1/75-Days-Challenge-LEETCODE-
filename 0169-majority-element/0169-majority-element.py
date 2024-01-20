@@ -1,3 +1,4 @@
+#Noore's voting algorithm
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         cnt=0
