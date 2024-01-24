@@ -3,19 +3,17 @@ class Solution:
         n=len(nums)
         if n==0:
             return 0
-        cnt_crt=0
-        last_smaller=float('-inf')
         longest=1
-        nums.sort()
-
+        st=set()
         for i in range(n):
-            if nums[i]-1==last_smaller:
-                cnt_crt+=1
-                last_smaller=nums[i]
-            elif nums[i]!=last_smaller:
-                cnt_crt=1
-                last_smaller=nums[i]
-            longest=max(longest,cnt_crt)
-            
+            st.add(nums[i])
+        for i in st:
+            if i-1 not in st:
+                cnt=1
+                x=i
+                while x+1 in st:
+                    cnt+=1
+                    x+=1
+                longest=max(longest,cnt)
         return longest
-            
+                
