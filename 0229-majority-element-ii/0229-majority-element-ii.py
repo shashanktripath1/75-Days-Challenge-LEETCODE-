@@ -24,9 +24,8 @@ class Solution:
                 cnt1+=1
             elif nums[i]==ele2:
                 cnt2+=1
-        check=int(n/3)+1
-        if cnt1>=check:
+        if cnt1>n//3:
             ans.append(ele1)
-        if cnt2>=check:
+        if cnt2>n//3:
             ans.append(ele2)
         return ans
