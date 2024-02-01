@@ -4,14 +4,10 @@ class Solution:
         ans=[]
         intervals.sort()
         for i in range(n):
-            start,end=intervals[i][0],intervals[i][1]
-            
-            if ans and end<=ans[-1][1]:
-                continue
-            for j in range(i+1,n):
-                if intervals[j][0]<=end:
-                    end=max(end,intervals[j][1])
-                else:
-                    break
-            ans.append([start,end])
+            #if current interval does not lie in the last interval
+            if not ans or intervals[i][0]>ans[-1][1]:
+                ans.append(intervals[i])
+            #if current interval lie in the previous interval
+            else:
+                ans[-1][1]=max(ans[-1][1],intervals[i][1])
         return ans
