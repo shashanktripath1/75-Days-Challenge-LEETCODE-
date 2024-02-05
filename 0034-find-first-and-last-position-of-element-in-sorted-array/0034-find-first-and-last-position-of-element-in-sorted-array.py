@@ -1,35 +1,39 @@
 class Solution:
-    def first_occurence(self,nums,n,target):
-        low,high=0,n-1
-        ans=-1
-        while low<=high:
-            mid=(low+high)//2
-            if nums[mid]==target:
-                ans=mid
-                high=mid-1
-            elif nums[mid]>target:
-                high=mid-1
+    def upperBound(self,arr, n, x):
+        low = 0
+        high = n - 1
+        ans = n
+
+        while low <= high:
+            mid = (low + high) // 2
+        # maybe an answer
+            if arr[mid] > x:
+                ans = mid
+            # look for smaller index on the left
+                high = mid - 1
             else:
-                low=mid+1
+                low = mid + 1  # look on the right
         return ans
-                
-        
-    def last_occurence(self,nums,n,target):
-        low,high=0,n-1
-        ans=-1
-        while low<=high:
-            mid=(low+high)//2
-            if nums[mid]==target:
-                ans=mid
-                low=mid+1
-            elif nums[mid]>target:
-                high=mid-1
+
+    def lowerBound(self,arr, n, x):
+        low = 0
+        high = n - 1
+        ans = n
+
+        while low <= high:
+            mid = (low + high) // 2
+        # maybe an answer
+            if arr[mid] >= x:
+                ans = mid
+            # look for smaller index on the left
+                high = mid - 1
             else:
-                low=mid+1
+                low = mid + 1  # look on the right
         return ans
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         n=len(nums)
-        first_occ=self.first_occurence(nums,n,target)
-        last_occ=self.last_occurence(nums,n,target)
-        return [first_occ,last_occ]
-    
+        lb=self.lowerBound(nums,n,target)
+        if lb==n or nums[lb]!=target:
+            return [-1,-1]
+        ub=self.upperBound(nums,n,target)
+        return [lb,ub-1]
