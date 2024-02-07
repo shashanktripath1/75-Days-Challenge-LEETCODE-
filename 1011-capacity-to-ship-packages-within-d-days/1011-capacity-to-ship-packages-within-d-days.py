@@ -14,13 +14,13 @@ class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         low=max(weights)
         high=sum(weights)
-        ans=low
+        #ans=low
         while low<=high:
             mid=(low+high)//2
             days_possible=self.possible(weights,mid)
             if days_possible<=days:
-                ans=mid
+                #ans=mid
                 high=mid-1
             else:
                 low=mid+1
-        return ans
+        return low
