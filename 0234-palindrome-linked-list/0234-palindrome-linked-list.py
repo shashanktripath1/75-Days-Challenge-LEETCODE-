@@ -24,10 +24,10 @@ class Solution:
         second=new_head
         while second is not None:
             if first.val!=second.val:
-                self.reverse_ll(new_head)
+                #self.reverse_ll(new_head)
                 return False
             first=first.next
             second=second.next
-        self.reverse_ll(new_head)
+        #self.reverse_ll(new_head)
         return True
                 
