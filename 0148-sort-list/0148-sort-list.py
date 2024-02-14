@@ -4,40 +4,21 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def merge_ll(self,left,right):
-        temp=ans=ListNode()
-        while left!=None and right!=None:
-            if left.val<=right.val:
-                temp.next=left
-                left=left.next
-            else:
-                temp.next=right
-                right=right.next
-            temp=temp.next
-        if left is not None:
-            temp.next=left
-            #left=left.next
-        if right is not None:
-            temp.next=right
-            #right=right.next
-        return ans.next
-            
-    def middle(self,head):
-        slow=head
-        fast=head.next #to handle the edge case
-        while fast and fast.next:
-            slow=slow.next
-            fast=fast.next.next
-        return slow
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head or not head.next:
-            return head
-        left=head
-        right=self.middle(head)
-        temp=right.next
-        right.next=None
-        right=temp
-        left=self.sortList(left)
-        right=self.sortList(right)
-        return self.merge_ll(left,right)
-    
+        stack=[]
+        temp=head
+        while temp is not None:
+            stack.append(temp.val)
+            temp=temp.next
+        stack=sorted(stack)
+        temp=head
+        i=0
+        while temp is not None:
+            temp.val=stack[i]
+            temp=temp.next
+            i+=1
+        return head
+    #Brute Force
+    #TC=O(N+NlogN+N)
+    #SC=O(N)
+        
