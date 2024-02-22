@@ -12,5 +12,13 @@ class Solution:
         return dp[i][j]
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         m,n=len(triangle),len(triangle[-1])
-        dp=[[-1 for i in range(n+1)]for j in range(m+1)]
-        return self.f(0,0,triangle,dp)
+        dp=[[-1 for i in range(n)]for j in range(m)]
+        #basecase
+        for i in range(n):
+            dp[n-1][i]=triangle[n-1][i]
+        for i in range(n-2,-1,-1):
+            for j in range(i,-1,-1):
+                down=triangle[i][j]+dp[i+1][j]
+                diagonal=triangle[i][j]+dp[i+1][j+1]
+                dp[i][j]=min(down,diagonal)
+        return dp[0][0]
