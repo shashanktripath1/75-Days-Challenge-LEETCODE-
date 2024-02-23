@@ -13,25 +13,27 @@ class Solution:
         return dp[i][j]
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
         m,n=len(matrix),len(matrix[0])
-        dp=[[-1 for j in range(n)]for i in range(m)]
+        prev=[0]*n
+        cur=[0]*n
         for j in range(n):
-            dp[0][j]=matrix[0][j]
+            prev[j]=matrix[0][j]
         for i in range(1,m):
             for j in range(n):
-                up=matrix[i][j]+dp[i-1][j]
+                up=matrix[i][j]+prev[j]
                 left_diagonal=0
                 if j-1>=0:
-                    left_diagonal=matrix[i][j]+dp[i-1][j-1]
+                    left_diagonal=matrix[i][j]+prev[j-1]
                 else:
                     left_diagonal+=float('inf')
                 right_diagonal=0
                 if j+1<n:
-                    right_diagonal=matrix[i][j]+dp[i-1][j+1]
+                    right_diagonal=matrix[i][j]+prev[j+1]
                 else:
                     right_diagonal+=float('inf')
-                dp[i][j]=min(up,min(left_diagonal,right_diagonal))
+                cur[j]=min(up,min(left_diagonal,right_diagonal))
+            prev=cur[:]
         mini=float('inf')
         for j in range(n):
-            mini=min(mini,dp[m-1][j])
+            mini=min(mini,prev[j])
         return mini
         
