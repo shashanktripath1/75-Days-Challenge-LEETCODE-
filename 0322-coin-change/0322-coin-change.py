@@ -15,10 +15,22 @@ class Solution:
         return dp[ind][target]
     def coinChange(self, coins: List[int], amount: int) -> int:
         n=len(coins)
-        dp=[[-1 for j in range(amount+1)] for i in range(n)]
+        dp=[[0 for j in range(amount+1)] for i in range(n)]
         if amount==0:
             return 0
-        ans=self.f(n-1,amount,coins,dp)
+        for j in range(amount+1):
+            if j%coins[0]==0:
+                dp[0][j]=j//coins[0]
+            else:
+                dp[0][j]=int(1e9)
+        for ind in range(1,n):
+            for target in range(amount+1):
+                not_take=0+dp[ind-1][target]
+                take=int(1e9)
+                if coins[ind]<=target:
+                    take=1+dp[ind][target-coins[ind]]
+                dp[ind][target]=min(not_take,take)
+        ans=dp[n-1][amount]
         if ans>=int(1e9):
             return -1
         return ans
