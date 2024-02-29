@@ -14,14 +14,18 @@ class Solution:
         return dp[ind][buy]
     def maxProfit(self, prices: List[int]) -> int:
         n=len(prices)
-        dp=[[0 for _ in range(2)]for _ in range(n+2)]
+        cur = [0, 0]
+        front = [0, 0]
+        front2 = [0, 0]        
         for ind in range(n-1,-1,-1):
             for buy in range(2):
                 if(buy==0):
-                    op1=0+dp[ind+1][0]
-                    op2=-prices[ind]+dp[ind+1][1]
+                    op1=0+front[0]
+                    op2=-prices[ind]+front[1]
                 else:
-                    op1=0+dp[ind+1][1]
-                    op2=prices[ind]+dp[ind+2][0]
-                dp[ind][buy]=max(op1,op2)
-        return dp[0][0]
+                    op1=0+front[1]
+                    op2=prices[ind]+front2[0]
+                cur[buy]=max(op1,op2)
+            front2 = front.copy()
+            front = cur.copy()
+        return cur[0]
