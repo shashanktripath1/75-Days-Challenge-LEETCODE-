@@ -1,3 +1,8 @@
+#using multiple passes 1)for finding left_smaller
+#2)for finding right_smaller
+#3)for finding max_area using above two
+#TC=O(n)+O(N)+O(N)+O(N)
+#SC=O(N)+O(N)+O(N)
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         n=len(heights)
