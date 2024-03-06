@@ -7,16 +7,15 @@
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         d=defaultdict(list)
-        q=deque()
-        q.append([root,0,0])
-        while(q):
-            node,row,col=q.popleft()
+        queue=deque()
+        queue.append([root,0,0])
+        while queue:
+            node,row,col=queue.popleft()
             d[col].append([node.val,row])
             if node.left:
-                q.append([node.left,row+1,col-1])
+                queue.append([node.left,row+1,col-1])
             if node.right:
-                q.append([node.right,row+1,col+1])
-        
+                queue.append([node.right,row+1,col+1])
         ans=[]
         for i in sorted(d.keys()):
             lst=d[i]
@@ -26,4 +25,3 @@ class Solution:
                 temp.append(i[0])
             ans.append(temp)
         return ans
-        
