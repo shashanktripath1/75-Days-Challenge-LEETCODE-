@@ -5,19 +5,18 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def find_sum(self,root):
-        if root is None:
+    def dfs(self,root):
+        if not root:
             return 0
-        left_sum=self.find_sum(root.left)
-        right_sum=self.find_sum(root.right)
-            
-        left_sum=max(left_sum,0)
-        right_sum=max(right_sum,0)
-            
-        self.res=max(self.res,root.val+left_sum+right_sum)
-        return root.val+max(left_sum,right_sum)
-    def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        self.res = root.val
+        left_sum=self.dfs(root.left)
+        right_sum=self.dfs(root.right)
         
-        self.find_sum(root)
-        return self.res
+        left_sum=max(0,left_sum)
+        right_sum=max(0,right_sum)
+        
+        self.ans=max(self.ans,root.val+left_sum+right_sum)#when node is acting as a turning point
+        return root.val+max(left_sum,right_sum)#when node is not acting as a turning point
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        self.ans=root.val
+        self.dfs(root)
+        return self.ans
