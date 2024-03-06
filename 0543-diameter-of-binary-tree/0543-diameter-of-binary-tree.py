@@ -7,19 +7,18 @@
 '''The issue with your code lies in the way you are updating the diameter variable inside the dfs function. In Python, integers are immutable, and when you pass diameter to the recursive calls, you are essentially passing its value, not a reference. Therefore, any modifications inside the recursive calls won't affect the original diameter in the outer scope.
 
 To fix this, you can use a mutable object like a list to hold the diameter value and pass it through the recursive calls. Here's the corrected code:'''
-# else we can use this nonlocal concept
+# we can use this way also in upcoming questions also
 class Solution:
+    def dfs(self,root):
+        if not root:
+            return 0
+        left_height=self.dfs(root.left)
+        right_height=self.dfs(root.right)
+        self.diameter=max(self.diameter,left_height+right_height)
+        return 1+max(left_height,right_height)
     
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        def dfs(root):
-            nonlocal diameter
-            if not root:
-                return 0
-            left_height=dfs(root.left)
-            right_height=dfs(root.right)
-            diameter=max(diameter,left_height+right_height)
-            return 1+max(left_height,right_height)
-        diameter=0
-        dfs(root)
-        return diameter
+        self.diameter=0
+        self.dfs(root)
+        return self.diameter
     
