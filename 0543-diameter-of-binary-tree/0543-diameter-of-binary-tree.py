@@ -8,15 +8,17 @@
 
 To fix this, you can use a mutable object like a list to hold the diameter value and pass it through the recursive calls. Here's the corrected code:'''
 class Solution:
-    def dfs(self,root,diameter):
-        if not root:
-            return 0
-        left_height=self.dfs(root.left,diameter)
-        right_height=self.dfs(root.right,diameter)
-        diameter[0]=max(diameter[0],left_height+right_height)
-        return 1+max(left_height,right_height)
+    
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        diameter=[0]
-        self.dfs(root,diameter)
-        return diameter[0]
+        def dfs(root):
+            nonlocal diameter
+            if not root:
+                return 0
+            left_height=dfs(root.left)
+            right_height=dfs(root.right)
+            diameter=max(diameter,left_height+right_height)
+            return 1+max(left_height,right_height)
+        diameter=0
+        dfs(root)
+        return diameter
     
