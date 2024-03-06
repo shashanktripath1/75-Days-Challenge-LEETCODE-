@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#optimized solution
 class Solution:
     def dfs(self,root):
         if not root:
