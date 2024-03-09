@@ -18,7 +18,7 @@ class Solution:
                 while temp.right and temp.right!=cur:
                     temp=temp.right
                 if not temp.right:
-                    ans.append(cur.val)
+                    ans.append(cur.val)#only change from inorder
                     temp.right=cur
                     cur=cur.left
                 else:
