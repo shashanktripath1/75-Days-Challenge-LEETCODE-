@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-# Target node is replaced by smallest element of right subtree
+# Target node is replaced by largest element of left subtree
 class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         
@@ -31,13 +31,13 @@ class Solution:
 
             else:
                 # Both two childs exist
-                # Target node is replaced by smallest element of right subtree
-                cur = root.right
+                # Target node is replaced by largest element of left subtree
+                cur = root.left
 
-                while cur.left:
-                    cur = cur.left
+                while cur.right:
+                    cur = cur.right
 
                 root.val = cur.val
-                root.right = self.deleteNode( root.right, cur.val )
+                root.left = self.deleteNode( root.left, cur.val )
                     
         return root
