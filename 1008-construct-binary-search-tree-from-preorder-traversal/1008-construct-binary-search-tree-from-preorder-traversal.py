@@ -4,6 +4,8 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#TC=O(N)
+#SC=O(H)
 class Solution:
     def BUILDBST(self,ind,start,end,preorder):
         if ind[0]==len(preorder) or not (start<=preorder[ind[0]]<=end):
