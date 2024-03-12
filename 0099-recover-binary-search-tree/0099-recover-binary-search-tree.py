@@ -4,6 +4,8 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#TC=O(N)
+#SC=O(H)
 class Solution:
     def __init__(self):
         self.first = None
