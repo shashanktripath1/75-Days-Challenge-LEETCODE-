@@ -5,14 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def helper(self,root,res):
-        if not root:
-            return
-        self.helper(root.left,res)
-        res.append(root.val)
-        self.helper(root.right,res)
-        return res
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        res=[]
-        self.helper(root,res)
-        return res[k-1]
+        result = []
+        self.inOrderTraversal(root, k, result)
+        return result[-1]
+
+    def inOrderTraversal(self, root, k, result):
+        if not root or len(result) == k:
+            return
+
+        self.inOrderTraversal(root.left, k, result)
+
+        if len(result) < k:
+            result.append(root.val)
+            self.inOrderTraversal(root.right, k, result)
