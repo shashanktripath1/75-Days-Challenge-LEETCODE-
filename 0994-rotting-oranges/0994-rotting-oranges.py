@@ -2,26 +2,26 @@ from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         R,C=len(grid),len(grid[0])
-        q=deque()
-        fresh_coordinates=0
-        for r in range(R):
-            for c in range(C):
-                if grid[r][c]==2:
-                    q.append((r,c))
-                elif grid[r][c]==1:
-                    fresh_coordinates+=1
+        queue=deque()
+        count_fresh_oranges=0
+        for i in range(R):
+            for j in range(C):
+                if grid[i][j]==2:
+                    queue.append((i,j))
+                elif grid[i][j]==1:
+                    count_fresh_oranges+=1
         directions=[(1,0),(-1,0),(0,1),(0,-1)]
-        minute=0
-        while q:
-            q_size=len(q)
-            for _ in range(q_size):
-                r,c=q.popleft()
+        minutes=0
+        while queue:
+            queue_len=len(queue)
+            for _ in range(queue_len):
+                r,c=queue.popleft()
                 for d in directions:
                     nr,nc=r+d[0],c+d[1]
                     if 0<=nr<R and 0<=nc<C and grid[nr][nc]==1:
                         grid[nr][nc]=2
-                        fresh_coordinates-=1
-                        q.append((nr,nc))
-            if q:
-                minute+=1
-        return minute if not fresh_coordinates else -1
+                        count_fresh_oranges-=1
+                        queue.append((nr,nc))
+            if queue:
+                minutes+=1
+        return minutes if not count_fresh_oranges else -1
