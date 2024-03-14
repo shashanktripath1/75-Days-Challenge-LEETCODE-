@@ -1,34 +1,32 @@
+from collections import deque
+from typing import List
+
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        s=set(wordList)
-        l=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t',
-        'u','v','w','x','y','z']
-        queue=deque([])
-        queue.append([beginWord,0])
-        while queue:
-            a,b=queue.popleft()
-            if a==endWord:
-                return b+1
-            for j in range(len(a)):
-                for i in l:
-                    if (a[:j]+i+a[j+1:]) in s and (a[:j]+i+a[j+1:])!=beginWord:
-                        s.remove(a[:j]+i+a[j+1:])
-                        queue.append([a[:j]+i+a[j+1:],b+1])
+    def  ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # Creating a queue ds of type {word, transitions to reach ‘word’}.
+        q = deque([(beginWord, 1)])
+
+        # Push all values of wordList into a set
+        # to make deletion from it easier and in less time complexity.
+        word_set = set(wordList)
+        word_set.discard(beginWord)
+
+        while q:
+            word, steps = q.popleft()
+
+            # Return the steps as soon as the first occurrence of endWord is found.
+            if word == endWord:
+                return steps
+
+            # Replace each character of word with char from a-z then check if it exists in wordList.
+            for i in range(len(word)):
+                for ch in 'abcdefghijklmnopqrstuvwxyz':
+                    new_word = word[:i] + ch + word[i+1:]
+                    # Check if it exists in the set and push it into the queue.
+                    if new_word in word_set:
+                        word_set.remove(new_word)
+                        q.append((new_word, steps + 1))
+
+        # If there is no transformation sequence possible
         return 0
-        
-        # sw,tw,wl=beginWord,endWord,wordList
-        # s=set(wl)
-        # l=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t',
-        # 'u','v','w','x','y','z']
-        # q=deque([])
-        # q.append([sw,0])
-        # while q:
-        #     a,b=q.popleft()
-        #     if a == tw:
-        #         return b+1
-        #     for j in range(len(a)):
-        #         for i in l:
-        #             if (a[:j]+i+a[j+1:]) in s and (a[:j]+i+a[j+1:])!=sw:
-        #                 s.remove(a[:j]+i+a[j+1:])
-        #                 q.append([a[:j]+i+a[j+1:],b+1])
-        # return 0
+
