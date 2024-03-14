@@ -11,8 +11,8 @@ class Solution:
                 if mat[i][j]==0:
                     queue.append(((i,j),0))
                     visited[i][j]=1
-                else:
-                    visited[i][j]=0
+                #else:
+                    #visited[i][j]=0
         delrow = [-1, 0, 1, 0]
         delcol = [0, 1, 0, -1]
         while queue:
