@@ -1,36 +1,19 @@
-from collections import deque
-#from typing import List
-
 class Solution:
+    #for comments check previous submission of this code
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        # Creating a queue ds of type {word, transitions to reach ‘word’}.
-        #q = deque([(beginWord, 1)])
-        q=deque()
-        q.append((beginWord,1))
-
-        # Push all values of wordList into a set
-        # to make deletion from it easier and in less time complexity.
-        word_set = set(wordList)
-
-        # Remove beginWord from the word_set if it exists in wordList
+        queue=deque()
+        queue.append((beginWord,1))
+        word_set=set(wordList)
         if beginWord in word_set:
             word_set.remove(beginWord)
-
-        while q:
-            word, steps = q.popleft()
-
-            # Return the steps as soon as the first occurrence of endWord is found.
-            if word == endWord:
+        while queue:
+            word,steps=queue.popleft()
+            if word==endWord:
                 return steps
-
-            # Replace each character of word with char from a-z then check if it exists in wordList.
             for i in range(len(word)):
-                for ch in 'abcdefghijklmnopqrstuvwxyz':
-                    new_word = word[:i] + ch + word[i+1:]
-                    # Check if it exists in the set and push it into the queue.
+                for ch in "abcdefghijklmnopqrstuvwxyz":
+                    new_word=word[:i]+ch+word[i+1:]
                     if new_word in word_set:
                         word_set.remove(new_word)
-                        q.append((new_word, steps + 1))
-
-        # If there is no transformation sequence possible
+                        queue.append((new_word,steps+1))
         return 0
