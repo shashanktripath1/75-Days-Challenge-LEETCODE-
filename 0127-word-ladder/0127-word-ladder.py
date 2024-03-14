@@ -4,7 +4,9 @@ from collections import deque
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         # Creating a queue ds of type {word, transitions to reach ‘word’}.
-        q = deque([(beginWord, 1)])
+        #q = deque([(beginWord, 1)])
+        q=deque()
+        q.append((beginWord,1))
 
         # Push all values of wordList into a set
         # to make deletion from it easier and in less time complexity.
