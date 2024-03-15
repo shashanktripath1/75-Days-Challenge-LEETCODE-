@@ -1,22 +1,24 @@
-#dfs approach
 class Solution:
-    def isBipartite(self, graph: List[List[int]]) -> bool:
-        def dfs(i,c):
-            if color[i]!=-1:
-                if color[i]!=c:
+    def dfs(self, node, col, color, graph):
+        color[node] = col
+
+        # Traverse adjacent nodes
+        for neighbor in graph[node]:
+            # If uncolored
+            if color[neighbor] == -1:
+                if not self.dfs(neighbor, 1 - col, color, graph):
                     return False
-                return True
-            color[i]=c
-            for v in graph[i]:
-                if not dfs(v,1-c):
-                    return False
-            return True
-            
-        n=len(graph)
-        color=[-1]*(n)
-        for i in range(n):
-            if color[i]==-1:
-                if not dfs(i,1):
+            # If previously colored and have the same color
+            elif color[neighbor] == col:
+                return False
+
+        return True
+
+    def isBipartite(self, graph: List[List[int]]):
+        color = [-1] * len(graph)
+        # For connected components
+        for i in range(len(graph)):
+            if color[i] == -1:
+                if not self.dfs(i, 0, color, graph):
                     return False
         return True
-    
