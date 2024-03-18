@@ -8,7 +8,8 @@ class Solution:
         
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
         queue = deque([(0, 0, 1)])  # (row, col, path_length)
-        visited = set([(0, 0)])
+        visited = [[False] * n for _ in range(n)]
+        visited[0][0] = True
         
         while queue:
             row, col, path_length = queue.popleft()
@@ -17,8 +18,9 @@ class Solution:
             
             for dr, dc in directions:
                 new_row, new_col = row + dr, col + dc
-                if 0 <= new_row < n and 0 <= new_col < n and grid[new_row][new_col] == 0 and (new_row, new_col) not in visited:
-                    visited.add((new_row, new_col))
+                if 0 <= new_row < n and 0 <= new_col < n and grid[new_row][new_col] == 0 and not visited[new_row][new_col]:
+                    visited[new_row][new_col] = True
                     queue.append((new_row, new_col, path_length + 1))
         
         return -1
+
