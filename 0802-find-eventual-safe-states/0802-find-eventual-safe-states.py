@@ -1,24 +1,23 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n=len(graph)
+        adjRev=[[] for _ in range(n)]
         indegree=[0]*(n)
-        adj=[[]for _ in range(n)]
-        for u in range(n):
-            for v in graph[u]:
-                adj[v].append(u)
-                indegree[u]+=1
+        for i in range(n):
+            for neighbour in graph[i]:
+                adjRev[neighbour].append(i)
+                indegree[i]+=1
         queue=deque()
-        for v in range(n):
-            if indegree[v]==0:
-                queue.append(v)
-        ans=[]
+        safeNodes=[]
+        for i in range(n):
+            if indegree[i]==0:
+                queue.append(i)
         while queue:
-            u=queue.popleft()
-            ans.append(u)
-            for v in adj[u]:
-                indegree[v]-=1
-                if indegree[v]==0:
-                    queue.append(v)
-        return sorted(ans)
+            node=queue.popleft()
+            safeNodes.append(node)
+            for neighbour in adjRev[node]:
+                indegree[neighbour]-=1
+                if indegree[neighbour]==0:
+                    queue.append(neighbour)
+        return sorted(safeNodes)
         
-            
