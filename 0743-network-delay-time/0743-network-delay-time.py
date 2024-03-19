@@ -2,29 +2,20 @@ import heapq
 
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        # Create an adjacency list to represent the graph
-        graph = [[]for _ in range(n+1)]
-        for u, v, w in times:
-            graph[u].append((v, w))
-        
-        # Create a min-heap (priority queue) to store (time, node) pairs
-        pq = [(0, k)]
-        # Dictionary to store the shortest time to reach each node
-        dist = {}
-        
-        # Dijkstra's algorithm
+        graph=[[] for _ in range(n+1)]
+        for u,v,w in times:
+            graph[u].append((v,w))
+        pq=[(0,k)]
+        dist={}
         while pq:
-            time, node = heapq.heappop(pq)
+            time,node=heapq.heappop(pq)
             if node in dist:
                 continue
-            dist[node] = time
-            for neighbor, neighbor_time in graph[node]:
-                if neighbor not in dist:
-                    heapq.heappush(pq, (time + neighbor_time, neighbor))
-        
-        # Check if all nodes are reachable
-        if len(dist) != n:
+            dist[node]=time
+            for neighbour,neighbour_time in graph[node]:
+                if neighbour not in dist:
+                    heapq.heappush(pq,(time+neighbour_time,neighbour))
+        if len(dist)!=n:
             return -1
-        
-        # Return the maximum time taken to reach a node
         return max(dist.values())
+    
