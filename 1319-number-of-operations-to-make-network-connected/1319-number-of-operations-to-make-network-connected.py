@@ -44,8 +44,11 @@ class Solution:
                 cntExtras += 1
             else:
                 ds.unionBySize(u, v)
-        cntC = sum(1 for i in range(n) if ds.parent[i] == i)
-        ans = cntC - 1
+        cnt_connected_component=0
+        for i in range(n):
+            if ds.parent[i]==i:
+                cnt_connected_component+=1
+        ans = cnt_connected_component - 1
         if cntExtras >= ans:
             return ans
         return -1
