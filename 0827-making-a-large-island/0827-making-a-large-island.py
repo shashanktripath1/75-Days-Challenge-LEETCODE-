@@ -72,7 +72,9 @@ class Solution:
                     newc = col + dc[ind]
                     if self.isValid(newr, newc, n) and grid[newr][newc] == 1:
                         components.add(ds.findUPar(newr * n + newc))
-                sizeTotal = sum(ds.size[it] for it in components)
+                sizeTotal = 0
+                for it in components:
+                    sizeTotal += ds.size[it]
                 mx = max(mx, sizeTotal + 1)
 
         # Check all cells to find the maximum size among disjoint sets
