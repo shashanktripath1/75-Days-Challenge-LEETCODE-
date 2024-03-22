@@ -1,31 +1,45 @@
-from collections import defaultdict
 class Solution:
-    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
-        G = defaultdict(list)
-        for v, w in connections:
-            G[v].append(w)
-            G[w].append(v)
-        self.time = 0
-        visited = set()
-        visited_time = defaultdict(int)
-        parent = defaultdict(lambda:float('inf'))
-        res = []
-        def dfs(v):
-            if v in visited: return visited_time[v]
-            visited.add(v)
-            visited_time[v] = self.time
-            self.time += 1
-            highest = float('inf')
-            for w in G[v]:
-                if w in visited:
-                    if w != parent[v]:
-                        highest = min(highest,visited_time[w])
-                else:
-                    parent[w] = v
-                    highest_w = dfs(w)
-                    if highest_w > visited_time[v]:
-                        res.append([v,w])
-                    highest = min(highest, highest_w)
-            return highest
-        dfs(0)
-        return res
+    def __init__(self):
+        # Initialize timer for DFS
+        self.timer = 1
+
+    def dfs(self, node, parent, vis, adj, tin, low, bridges):
+        # Mark current node as visited
+        vis[node] = 1
+        # Initialize discovery time and low value
+        tin[node] = low[node] = self.timer
+        self.timer += 1
+        # Traverse all adjacent nodes
+        for it in adj[node]:
+            # Skip parent node
+            if it == parent:
+                continue
+            # If node is not visited
+            if vis[it] == 0:
+                # Recursive DFS call
+                self.dfs(it, node, vis, adj, tin, low, bridges)
+                # Update low value
+                low[node] = min(low[it], low[node])
+                # If there is a bridge, add it to the list
+                if low[it] > tin[node]:
+                    bridges.append([it, node])
+            else:
+                # Update low value
+                low[node] = min(low[node], low[it])
+
+    def criticalConnections(self, n, connections):
+        # Initialize adjacency list
+        adj = [[] for _ in range(n)]
+        # Construct adjacency list from connections
+        for u, v in connections:
+            adj[u].append(v)
+            adj[v].append(u)
+        # Initialize arrays for DFS
+        vis = [0] * n
+        tin = [0] * n
+        low = [0] * n
+        bridges = []  # List to store bridges
+        # Perform DFS
+        self.dfs(0, -1, vis, adj, tin, low, bridges)
+        return bridges
+
