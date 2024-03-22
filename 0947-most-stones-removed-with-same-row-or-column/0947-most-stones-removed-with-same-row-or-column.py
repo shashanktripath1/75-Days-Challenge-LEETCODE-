@@ -60,7 +60,7 @@ class Solution:
         for it in stoneNodes:
             if ds.findUPar(it) == it:
                 cnt += 1
-        
+        print(maxRow,maxCol)
         return n - cnt
 
 
