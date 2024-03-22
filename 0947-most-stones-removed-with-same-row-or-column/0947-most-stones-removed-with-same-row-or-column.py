@@ -38,6 +38,7 @@ class DisjointSet:
 class Solution:
     def removeStones(self, stones):
         n=len(stones)
+        # Finding the maximum row and column values
         maxRow = 0
         maxCol = 0
         for it in stones:
@@ -45,22 +46,23 @@ class Solution:
                 maxRow = it[0]
             if it[1] > maxCol:
                 maxCol = it[1]
-        
+        # Initializing a Disjoint Set to represent connected components
         ds = DisjointSet(maxRow + maxCol + 1)
         stoneNodes = {}
-        
+        # Union operation for stones in the same row or column
         for it in stones:
             nodeRow = it[0]
             nodeCol = it[1] + maxRow + 1
             ds.unionBySize(nodeRow, nodeCol)
             stoneNodes[nodeRow] = 1
             stoneNodes[nodeCol] = 1
+        # Counting the number of connected components
 
         cnt = 0
         for it in stoneNodes:
             if ds.findUPar(it) == it:
                 cnt += 1
-        print(maxRow,maxCol)
+        # Calculating the maximum number of stones that can be removed
         return n - cnt
 
 
