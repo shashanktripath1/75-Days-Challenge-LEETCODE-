@@ -1,13 +1,12 @@
 class Solution:
-    def helper(self,ind,ds,nums,ans):
-        if ind==len(nums):
-            ans.append(ds[:])
-            return ans
-        ds.append(nums[ind])
-        self.helper(ind+1,ds,nums,ans)
-        ds.pop()
-        return self.helper(ind+1,ds,nums,ans)
     def subsets(self, nums: List[int]) -> List[List[int]]:
+        n=len(nums)
         ans=[]
-        self.helper(0,[],nums,ans)
+        for i in range(2**n):
+            temp=[]
+            for j in range(n):
+                if i & (1<<j):
+                    temp.append(nums[j])
+            ans.append(temp)
         return ans
+            
